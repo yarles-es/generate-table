@@ -14,6 +14,25 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import {
+  getColumns,
+  addColumnsToDataBase,
+  deleteColumn,
+  updateColumn,
+  addColumnItemToDataBase,
+  getColumnItems,
+  deleteColumnItem,
+  resetDataBase,
+  getAllDataBase,
+  getDateInitialFromDataBase,
+  getDateFinalFromDataBase,
+  addDateInitialToDataBase,
+  addDateFinalToDataBase,
+  moveItemDown,
+  moveItemUp,
+  addDatesToDataBase,
+  getAllDates,
+} from './operationDB';
 
 class AppUpdater {
   constructor() {
@@ -25,10 +44,97 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
+ipcMain.handle('read-database-columns', async () => {
+  const columns = getColumns();
+  return columns;
+});
+
+ipcMain.handle('add-column', async (event, column) => {
+  await addColumnsToDataBase(column);
+  const columns = getColumns();
+  return columns;
+});
+
+ipcMain.handle('delete-column', async (event, id) => {
+  const dataBase = await deleteColumn(id);
+  return dataBase;
+});
+
+ipcMain.handle('update-column', async (event, column) => {
+  await updateColumn(column);
+  const columns = await getColumns();
+  return columns;
+});
+
+ipcMain.handle('add-column-item', async (event, columnItem) => {
+  await addColumnItemToDataBase(columnItem);
+  const itens = await getColumnItems();
+  return itens;
+});
+
+ipcMain.handle('read-database-column-items', async () => {
+  const columnsItens = await getColumnItems();
+  return columnsItens;
+});
+
+ipcMain.handle('delete-column-item', async (event, id) => {
+  const columnsItens = await deleteColumnItem(id);
+  return columnsItens;
+});
+
+ipcMain.handle('reset-database', async () => {
+  await resetDataBase();
+  const dataBase = await getAllDataBase();
+  return dataBase;
+});
+
+ipcMain.handle('get-all-database', async () => {
+  const dataBase = await getAllDataBase();
+  return dataBase;
+});
+
+ipcMain.handle('get-date-initial', async () => {
+  const dateInitial = await getDateInitialFromDataBase();
+  return dateInitial;
+});
+
+ipcMain.handle('get-date-final', async () => {
+  const dateFinal = await getDateFinalFromDataBase();
+  return dateFinal;
+});
+
+ipcMain.handle('add-date-initial', async (event, dateInitial) => {
+  await addDateInitialToDataBase(dateInitial);
+  const dataBase = await getDateInitialFromDataBase();
+  return dataBase;
+});
+
+ipcMain.handle('add-date-final', async (event, dateFinal) => {
+  await addDateFinalToDataBase(dateFinal);
+  const dataBase = await getDateFinalFromDataBase();
+  return dataBase;
+});
+
+ipcMain.handle('move-item-down', async (event, id) => {
+  await moveItemDown(id);
+  const columnsItens = await getColumnItems();
+  return columnsItens;
+});
+
+ipcMain.handle('move-item-up', async (event, id) => {
+  await moveItemUp(id);
+  const columnsItens = await getColumnItems();
+  return columnsItens;
+});
+
+ipcMain.handle('add-dates', async (event, dates) => {
+  const newDates = addDatesToDataBase(dates);
+  return newDates;
+});
+
+ipcMain.handle('get-dates', async () => {
+  const dates = await getAllDates();
+  return dates;
 });
 
 if (process.env.NODE_ENV === 'production') {
