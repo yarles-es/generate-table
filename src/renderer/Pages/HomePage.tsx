@@ -39,10 +39,7 @@ function HomePage() {
     >
       <Header />
 
-      {state.columns.length > 0 &&
-      state.rows.length > 0 &&
-      state.dates.length > 0 &&
-      visionTable ? (
+      {state.columns.length > 0 && state.rows.length > 0 && visionTable ? (
         <TablePlanting visionTable={() => setVisionTable(!visionTable)} />
       ) : (
         <div
@@ -72,7 +69,7 @@ function HomePage() {
               color: '#333',
             }}
           >
-            Padrao de inicio de plantão setado para sexta-feira
+            Padrão de início de plantão programado para sexta-feira
           </h3>
           <div>
             <div

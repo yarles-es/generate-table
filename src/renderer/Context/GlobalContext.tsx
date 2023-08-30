@@ -10,8 +10,8 @@ import { IDataBase } from '../../interfaces/db.interfaces';
 const initialState: IDataBase = {
   columns: [],
   rows: [],
-  dateInitial: '',
-  dateFinal: '',
+  initialDate: '',
+  finalDate: '',
   dates: [],
 };
 
@@ -50,12 +50,12 @@ const globalReducer = (state: IDataBase, action: Action) => {
     case 'SET_DATE_INITIAL':
       return {
         ...state,
-        dateInitial: action.payload,
+        initialDate: action.payload,
       };
     case 'SET_DATE_FINAL':
       return {
         ...state,
-        dateFinal: action.payload,
+        finalDate: action.payload,
       };
     case 'MOVE_ITEM_UP':
       return {

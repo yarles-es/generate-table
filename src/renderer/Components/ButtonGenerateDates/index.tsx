@@ -14,11 +14,11 @@ function ButtonGenerateDates({ visionTable }: PropTypes) {
   const dispatch = useGlobalDispatch();
 
   function stringToDate(dateStr: string): Date {
-    return parse(dateStr, 'yyyy-MM-dd', new Date());
+    return parse(dateStr, 'dd/MM/yyyy', new Date());
   }
 
   function dateToString(date: Date): string {
-    return format(date, 'yyyy-MM-dd');
+    return format(date, 'dd/MM/yyyy');
   }
 
   function getAllFridaysBetweenDates(

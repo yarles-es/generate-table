@@ -1,0 +1,72 @@
+.btn-up {
+  background-color: #65b568;
+  color: white;
+}
+
+.btn-down {
+  background-color: #d2bc78;
+  color: white;
+}
+
+.btn-close {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn-up:hover {
+  background-color: #45a049;
+}
+
+.btn-down:hover {
+  background-color: #ffa000;
+}
+
+.btn-close:hover {
+  background-color: #e53935;
+}
+
+.table-header-action,
+.table-cell-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.table-header-action .btn,
+.table-cell-action .btn {
+  margin: 0 2px;
+}
+
+.table-container {
+  width: 280px;
+  height: 350px;
+  overflow: auto;
+  border: 1px solid #e8e8e8;
+  margin: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-container::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem vertical */
+  height: 8px; /* Altura da barra de rolagem horizontal */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Cor do polegar (a parte móvel) */
+  border-radius: 4px; /* Arredondamento dos cantos */
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4); /* Cor do polegar quando o mouse está sobre ele */
+}
+
+.table-container::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1); /* Cor de fundo da trilha */
+  border-radius: 4px; /* Arredondamento dos cantos da trilha */
+}

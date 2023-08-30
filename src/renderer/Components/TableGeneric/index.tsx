@@ -1,7 +1,8 @@
-import { Button, Table } from 'antd';
+import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { IColumn, IColumnItem } from '../../../interfaces/db.interfaces';
 import { useGlobalDispatch } from '../../Context/GlobalContext';
+import './style.css';
 
 type TypeProps = {
   columns: IColumn[];
@@ -47,23 +48,41 @@ function TableGeneric({ columns, itensColumn }: TypeProps) {
     const deleteColumn: ColumnsType<ItemColum> = [
       {
         title: (
-          <div>
-            <Button onClick={() => handleDeleteColumn(column.id)}>X</Button>
+          <div className="table-header-action">
+            <button
+              type="button"
+              className="btn btn-close"
+              onClick={() => handleDeleteColumn(column.id)}
+            >
+              &times;
+            </button>
           </div>
         ),
         key: 'action',
         render: (_, record) => (
-          <>
-            <button type="button" onClick={() => moveItemUp(record.key)}>
-              &#8593;
+          <div className="table-cell-action">
+            <button
+              className="btn btn-up"
+              type="button"
+              onClick={() => moveItemUp(record.key)}
+            >
+              &uarr;
             </button>
-            <button type="button" onClick={() => moveItemDown(record.key)}>
+            <button
+              className="btn btn-down"
+              type="button"
+              onClick={() => moveItemDown(record.key)}
+            >
               &#8595;
             </button>
-            <button type="button" onClick={() => handleDelete(record.key)}>
-              x
+            <button
+              className="btn btn-close"
+              type="button"
+              onClick={() => handleDelete(record.key)}
+            >
+              &times;
             </button>
-          </>
+          </div>
         ),
       },
     ];
@@ -92,13 +111,13 @@ function TableGeneric({ columns, itensColumn }: TypeProps) {
       }}
     >
       {columns.map((column) => (
-        <Table
-          style={{ margin: 10 }}
-          key={column.id}
-          columns={generateColumnTable(column)}
-          dataSource={generateItensTable(column)}
-          pagination={false}
-        />
+        <div className="table-container" key={column.id}>
+          <Table
+            columns={generateColumnTable(column)}
+            dataSource={generateItensTable(column)}
+            pagination={false}
+          />
+        </div>
       ))}
     </div>
   );

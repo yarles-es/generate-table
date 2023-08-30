@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Input, Select, Space } from 'antd';
 import { useGlobalDispatch, useGlobalState } from '../../Context/GlobalContext';
 import { IColumnItem } from '../../../interfaces/db.interfaces';
@@ -16,9 +16,14 @@ function FormAddItemInColumn() {
   const [key, setKey] = useState<number>(0);
 
   const state = useGlobalState();
+  const prevColumnsLength = useRef(state.columns.length);
 
   useEffect(() => {
-    setKey(key + 1);
+    if (state.columns.length === 0 || prevColumnsLength.current > 0) {
+      setKey(key + 1);
+      setItemColumn({ id: 0, columnId: 0, name: '' });
+    }
+    prevColumnsLength.current = state.columns.length;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.columns]);
 

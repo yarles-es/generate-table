@@ -1,5 +1,6 @@
 import { DatePicker, DatePickerProps, Space } from 'antd';
 import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
 import { useEffect, useState } from 'react';
 import { useGlobalDispatch } from 'renderer/Context/GlobalContext';
 
@@ -14,7 +15,7 @@ function InputAddDate({ label, action, value }: PropTypes) {
 
   const generateValue = (dateString: string) => {
     if (dateString) {
-      const newDate = dayjs(dateString, 'YYYY-MM-DD');
+      const newDate = dayjs(dateString, 'DD-MM-YYYY');
       return newDate;
     }
     return undefined;
@@ -53,7 +54,12 @@ function InputAddDate({ label, action, value }: PropTypes) {
       }}
       direction="vertical"
     >
-      <DatePicker value={valueDate} placeholder={label} onChange={onChange} />
+      <DatePicker
+        format="DD/MM/YYYY"
+        value={valueDate}
+        placeholder={label}
+        onChange={onChange}
+      />
     </Space>
   );
 }
